@@ -78,8 +78,8 @@ extension FlickrPhotoSearchTableViewController: ReloadTableViewProtocol {
     
     func reloadTableView() {
         DispatchQueue.main.async {
+            self.tableView.reloadData()
             if self.controller.photos.count > 0 {
-                self.tableView.reloadData()
                 self.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
             } else {
                 let alert = UIAlertController(title: "Sorry", message: "There were no results, please try a new search term.", preferredStyle: .alert)

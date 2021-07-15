@@ -16,13 +16,22 @@ final class NetworkManager {
     private let cache = NSCache<NSString, UIImage>()
     var searchTerm: String?
     var url: URL? {
-        guard let searchTerm = searchTerm else { return nil }
+        guard var searchTerm = searchTerm else { return nil }
+        searchTerm = cleanSearchTerm(searchTerm)
         let baseURL = "https://api.flickr.com/services/feeds/photos_public.gne?tagmode=any&format=json&nojsoncallback=1&tags=\(searchTerm)"
-        
+        print(baseURL)
         if let url = URL(string: baseURL) {
             return url
         }
         return nil
+    }
+    
+    func cleanSearchTerm(_ searchTerm: String) -> String {
+        var string = searchTerm.replacingOccurrences(of: " ", with: ",")
+        while string.contains(",,") {
+            string = string.replacingOccurrences(of: ",,", with: ",")
+        }
+        return string
     }
     
     // MARK: - Functions

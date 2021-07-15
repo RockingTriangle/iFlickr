@@ -19,6 +19,7 @@ final class PhotoController {
         
     // MARK: - Functions
     func getPhotos() {
+        photos.removeAll()
         NetworkManager.shared.searchPhotos { [weak self] result in
             guard let self = self else { return }
             switch result {
